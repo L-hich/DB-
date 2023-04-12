@@ -270,3 +270,141 @@ where 제품번호 not in (select 주문제품
                                         where 주문고객 ='banana');
 
 
+--44번
+select  제품명, 단가, 제조업체
+from 제품
+where 단가 > all (select 단가
+    				from 제품
+    				where 제조업체 = '대한식품');
+
+--45번
+select 고객이름
+from 고객
+where exists (select *
+    				from 주문
+    				where 주문일자 = '2022-03-15' and 고객.고객아이디 = 주문.주문고객);
+
+
+--46번
+select 고객이름
+from 고객
+where not exists (select *
+    				from 주문
+    				where 주문일자 = '2022-03-15' and 고객.고객아이디 = 주문.주문고객);
+
+--47번
+insert 
+into 고객(고객아이디, 고객이름,나이,등급,직업,적립금)
+values ('strawberry','최유경', 30, 'vip','공무원', 100 );
+
+select *
+from 고객;
+
+--48번
+insert 
+into 고객(고객아이디, 고객이름, 나이, 등급, 적립금)
+values ('tomato', '정은심', 36, 'gold', 4000);
+
+select * from 고객;
+
+--49번
+update 제품
+set 제품명 = '통큰파이'
+where 제품번호 = 'p03';
+
+select * 
+from 제품;
+
+
+--50번
+update 제품
+set 단가 = 단가*1.1;
+
+select *
+from 제품;
+
+
+--51번
+update 주문
+set 수량 = 5
+where 주문고객 in (select 고객아이디
+    				from 고객
+    				where 고객이름 = '정소화');
+
+select *
+from 주문;
+
+--52번
+delete
+from 주문
+where 주문일자 = '2022-05-22';
+
+select *
+from 주문;
+
+--53번
+delete 
+from 주문
+where 주문고객 in (select 고객아이디
+    				from 고객
+    				where 고객이름 = '정소화');
+
+select * from 주문;
+
+--54번
+delete
+from 주문;
+
+select *
+from 주문;
+
+--55번
+create view 우수고객(고객아이디, 고객이름, 나이, 등급)
+as select 고객아이디, 고객이름, 나이, 등급
+	from 고객
+	where 등급 = 'vip'
+with check option;
+
+select * from 우수고객;
+
+--56번
+create view 업체별제품수(제조업체, 제품수)
+as select 제조업체, count(*)
+	from 제품
+	group by 제조업체
+with check option;
+
+select * from 업체별제품수;
+
+--57번
+select *
+from 우수고객
+where 나이 >=20;
+
+--58번 선행
+create view 제품1
+as select 제품번호, 재고량, 제조업체
+	from 제품
+with check option;
+
+select * from 제품1;
+
+create view 제품2
+as select 제품명, 재고량, 제조업체
+	from 제품
+with check option;
+
+select * from 제품2;
+
+--58번
+insert into 제품1(제품번호,재고량,제조업체)
+	values('p08', 1000, '식선식품');
+
+select *
+from 제품1;
+
+--59번
+drop view 우수고객;
+
+
+
