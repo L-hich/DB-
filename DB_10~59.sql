@@ -282,7 +282,7 @@ select 고객이름
 from 고객
 where exists (select *
     				from 주문
-    				where 주문일자 = '2022-03-15' and 고객.고객아이디 = 주문.주문고객);
+    				where 주문일자 = '15-mar-22' and 고객.고객아이디 = 주문.주문고객);
 
 
 --46번
@@ -290,7 +290,7 @@ select 고객이름
 from 고객
 where not exists (select *
     				from 주문
-    				where 주문일자 = '2022-03-15' and 고객.고객아이디 = 주문.주문고객);
+    				where 주문일자 = '15-mar-22' and 고객.고객아이디 = 주문.주문고객);
 
 --47번
 insert 
@@ -337,7 +337,7 @@ from 주문;
 --52번
 delete
 from 주문
-where 주문일자 = '2022-05-22';
+where 주문일자 = '22-may-22';
 
 select *
 from 주문;
